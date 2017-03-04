@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiangyun.mapper.SystemUserMapper">
+    <resultMap id="BaseResultMap" type="com.xiangyun.model.SystemUser">
+        <id column="USER_ID" jdbcType="VARCHAR" property="userId"/>
+        <result column="USER_NAME" jdbcType="VARCHAR" property="userName"/>
+        <result column="USER_AGE" jdbcType="DECIMAL" property="userAge"/>
+        <result column="USER_BIRTH" jdbcType="TIMESTAMP" property="userBirth"/>
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    USER_ID, USER_NAME, USER_AGE, USER_BIRTH, CREATE_TIME
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from S_USER
+        where USER_ID = #{userId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from S_USER
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="com.xiangyun.model.SystemUser">
+    insert into S_USER (USER_ID, USER_NAME, USER_AGE, 
+      USER_BIRTH, CREATE_TIME)
+    values (#{userId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{userAge,jdbcType=DECIMAL}, 
+      #{userBirth,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="insertSelective" parameterType="com.xiangyun.model.SystemUser">
+        insert into S_USER
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                USER_ID,
+            </if>
+            <if test="userName != null">
+                USER_NAME,
+            </if>
+            <if test="userAge != null">
+                USER_AGE,
+            </if>
+            <if test="userBirth != null">
+                USER_BIRTH,
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="userName != null">
+                #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="userAge != null">
+                #{userAge,jdbcType=DECIMAL},
+            </if>
+            <if test="userBirth != null">
+                #{userBirth,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.xiangyun.model.SystemUser">
+        update S_USER
+        <set>
+            <if test="userName != null">
+                USER_NAME = #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="userAge != null">
+                USER_AGE = #{userAge,jdbcType=DECIMAL},
+            </if>
+            <if test="userBirth != null">
+                USER_BIRTH = #{userBirth,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where USER_ID = #{userId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.xiangyun.model.SystemUser">
+    update S_USER
+    set USER_NAME = #{userName,jdbcType=VARCHAR},
+      USER_AGE = #{userAge,jdbcType=DECIMAL},
+      USER_BIRTH = #{userBirth,jdbcType=TIMESTAMP},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xiangyun.mapper.StudentMapper">
+    <resultMap id="studentResultMap" type="com.xiangyun.model.Student">
+        <id column="STUDENT_ID" jdbcType="VARCHAR" property="studentId" javaType="string"/>
+        <result column="STUDENT_NAME" jdbcType="VARCHAR" property="studentName" javaType="string"/>
+    </resultMap>
+
+    <select id="queryAllStudent" resultMap="studentResultMap">
+        SELECT T.* FROM STUDENT T
+    </select>
+</mapper>
